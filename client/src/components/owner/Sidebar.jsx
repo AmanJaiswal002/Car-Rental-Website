@@ -8,7 +8,7 @@ const Sidebar = () => {
     const { user, axios, fetchUser } = useAppContext();
     const location = useLocation()
     const [profileImage, setProfileImage] = useState(() => {
-        return localStorage.getItem('ownerProfileImage') || user?.image || assets.user_profile;
+        return localStorage.getItem('ownerProfileImage') || assets.owner_profile;
     });
     const [image, setImage] = useState(null)
 
@@ -31,7 +31,7 @@ const Sidebar = () => {
         <div className='group relative'>
             <label htmlFor='image' className='cursor-pointer block relative'>
                <img 
-                 src={image ? URL.createObjectURL(image) : (user?.image || profileImage)} 
+                 src={image ? URL.createObjectURL(image) : profileImage} 
                  alt="Owner Profile"
                  className='w-32 h-32 rounded-full object-cover shadow-sm'
                />
