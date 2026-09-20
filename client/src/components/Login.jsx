@@ -30,7 +30,14 @@ const Login = () => {
                 toast.error(data.message)
             }
         } catch (error) {
-            toast.error(error.message)
+            console.error("Login/Register error:", error);
+            if (error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else if (error.code === "ERR_NETWORK" || !error.response) {
+                toast.error("Network Error! Server connect nahi ho pa raha hai.");
+            } else {
+                toast.error(error.message || "Something went wrong");
+            }
         }
     }
 
