@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A65F7"/>
+      <stop offset="45%" stop-color="#034BD9"/>
+      <stop offset="100%" stop-color="#002C9B"/>
+    </linearGradient>
+
+    <!-- Cyan Road Gradient -->
+    <linearGradient id="roadGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3BE4FF"/>
+      <stop offset="60%" stop-color="#00B2FF"/>
+      <stop offset="100%" stop-color="#0080FF"/>
+    </linearGradient>
+
+    <!-- Inner Cutout Gradient -->
+    <linearGradient id="cutoutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A65F7"/>
+      <stop offset="100%" stop-color="#0031A5"/>
+    </linearGradient>
+
+    <!-- Shadow for Depth -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- App Icon Squircle Base -->
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)"/>
+
+  <!-- MAIN GRAPHIC GROUP -->
+  <g filter="url(#dropShadow)">
+
+    <!-- 1. Location Marker Pin (White) -->
+    <path d="M 256 88 
+             C 214 88 180 122 180 164 
+             C 180 208 226 254 256 278 
+             C 286 254 332 208 332 164 
+             C 332 122 298 88 256 88 Z" 
+          fill="#FFFFFF"/>
+    
+    <!-- Pin Inner Hole -->
+    <circle cx="256" cy="158" r="26" fill="url(#cutoutGrad)"/>
+
+    <!-- 2. White Car (Front View) -->
+    <!-- Side Mirror Left -->
+    <path d="M 166 264 C 152 264 146 271 146 279 C 146 286 154 290 168 288 Z" fill="#FFFFFF"/>
+    <!-- Side Mirror Right -->
+    <path d="M 346 264 C 360 264 366 271 366 279 C 366 286 358 290 344 288 Z" fill="#FFFFFF"/>
+
+    <!-- Car Body -->
+    <path d="M 204 238 
+             C 216 236 242 234 256 234 
+             C 270 234 296 236 308 238 
+             C 320 240 330 268 338 286 
+             L 348 288 
+             C 356 290 362 297 362 306 
+             L 362 344 
+             C 362 352 356 358 348 358 
+             L 344 358 
+             C 344 365 338 370 330 370 
+             L 318 370 
+             C 312 370 306 365 306 358 
+             L 206 358 
+             C 206 365 200 370 194 370 
+             L 182 370 
+             C 174 370 168 365 168 358 
+             L 164 358 
+             C 156 358 150 352 150 344 
+             L 150 306 
+             C 150 297 156 290 164 288 
+             L 174 286 
+             C 182 268 192 240 204 238 Z" 
+          fill="#FFFFFF"/>
+
+    <!-- Windshield -->
+    <path d="M 212 244 
+             L 300 244 
+             C 308 244 316 266 322 280 
+             L 190 280 
+             C 196 266 204 244 212 244 Z" 
+          fill="url(#cutoutGrad)"/>
+
+    <!-- Left Headlight -->
+    <path d="M 174 298 
+             L 222 300 
+             C 218 312 188 315 174 308 
+             C 172 304 172 300 174 298 Z" 
+          fill="url(#cutoutGrad)"/>
+
+    <!-- Right Headlight -->
+    <path d="M 338 298 
+             L 290 300 
+             C 294 312 324 315 338 308 
+             C 340 304 340 300 338 298 Z" 
+          fill="url(#cutoutGrad)"/>
+
+    <!-- Front Grille -->
+    <path d="M 228 312 
+             L 284 312 
+             C 280 332 268 336 256 336 
+             C 244 336 232 332 228 312 Z" 
+          fill="url(#cutoutGrad)"/>
+
+    <!-- 3. Cyan Road Swoosh Arc -->
+    <!-- Dynamic curved road swooping from bottom left around under car to top right -->
+    <path d="M 124 388 
+             C 175 432 275 448 352 396 
+             C 418 350 448 268 418 178 
+             C 406 142 388 120 380 124 
+             C 372 128 386 150 398 184 
+             C 424 260 396 334 336 376 
+             C 268 422 178 408 132 370 
+             Z" 
+          fill="url(#roadGrad)"/>
+
+    <!-- Dashed Center Line on Cyan Road -->
+    <path d="M 142 390 
+             C 192 422 274 430 342 385 
+             C 402 344 426 266 398 186" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="7" 
+          stroke-linecap="round" 
+          stroke-dasharray="16 12"/>
+  </g>
+</svg>
