@@ -100,8 +100,10 @@ export const createBooking = async (req, res)=>{
 // API to List User Booking
 export const getUserBookings = async (req, res)=>{
     try {
-        const {_id} = req.user;
-        const bookings = await Booking.find({ user: _id }).populate("car").sort({ createdAt: -1 })
+        const {_id, role} = req.user;
+        // If logged in as Admin/Owner, return all bookings so Admin can view all booked cars in My Bookings
+        const query = role === 'owner' ? {} : { user: _id };
+        const bookings = await Booking.find(query).populate("car").sort({ createdAt: -1 });
         res.json({success: true, bookings})
 
     } catch (error) {
