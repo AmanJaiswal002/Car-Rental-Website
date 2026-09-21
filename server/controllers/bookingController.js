@@ -23,13 +23,18 @@ export const checkAvailabilityofCar = async (req, res)=>{
     try {
         const {location, pickupDate, returnDate} = req.body
 
-        // fetch all available cars for the given location using case-insensitive regex search
+        // fetch available cars for the given location using case-insensitive regex search
         const query = { isAvailable: true };
         if (location && typeof location === 'string' && location.trim() !== "") {
             query.location = { $regex: new RegExp(location.trim(), 'i') };
         }
 
-        const cars = await Car.find(query)
+        let cars = await Car.find(query)
+
+        // If no cars match the specific location, fallback to fetching all available cars
+        if (cars.length === 0) {
+            cars = await Car.find({ isAvailable: true })
+        }
 
         // check car availability for the given date range using promise
         const availableCarsPromises = cars.map(async (car)=>{
