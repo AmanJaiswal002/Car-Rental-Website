@@ -118,10 +118,10 @@ const Login = () => {
                 className="border border-gray-300 rounded-md w-full p-2 mt-1 outline-primary" type="password" required />
             </div>
 
+            {/* Admin mode security notice without revealing credentials */}
             {state === "admin" && (
-                <div className="w-full bg-amber-50 border border-amber-200 rounded p-2 text-xs text-amber-800">
-                    <strong>Default Admin:</strong> admin@carrental.com<br/>
-                    <strong>Password:</strong> admin12345
+                <div className="w-full bg-red-50 border border-red-100 rounded p-2 text-xs text-red-700 font-medium">
+                    🔒 Authorized Admin Access Only. Enter Admin email and password.
                 </div>
             )}
 
