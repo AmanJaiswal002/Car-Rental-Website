@@ -127,26 +127,14 @@ export const getDashboardData = async (req, res) =>{
             return res.json({ success: false, message: "Unauthorized" });
         }
 
-        const cars = await Car.find({owner: _id});
-        const carIds = cars.map(c => c._id);
+        const cars = await Car.find();
+        const bookings = await Booking.find().populate('car').sort({ createdAt: -1 });
 
-        const bookings = await Booking.find({
-            $or: [{ owner: _id }, { car: { $in: carIds } }]
-        }).populate('car').sort({ createdAt: -1 });
-
-        const pendingBookings = await Booking.find({
-            $or: [{ owner: _id }, { car: { $in: carIds } }],
-            status: "pending"
-        });
-
-        const completeBookings = await Booking.find({
-            $or: [{ owner: _id }, { car: { $in: carIds } }],
-            status: "confirmed"
-        });
+        const pendingBookings = bookings.filter(b => b.status === 'pending');
+        const completeBookings = bookings.filter(b => b.status === 'confirmed');
 
         // Calculate monthlyRevenue from booking where status is confirmed
-        const monthlyRevenue = bookings.filter(booking => booking.status === 'confirmed')
-            .reduce((acc, booking)=> acc + (booking.price || 0), 0);
+        const monthlyRevenue = completeBookings.reduce((acc, booking)=> acc + (booking.price || 0), 0);
 
         const dashboardData = {
             totalCars: cars.length,
@@ -155,7 +143,7 @@ export const getDashboardData = async (req, res) =>{
             pendingBookings: pendingBookings.length,
             completedBookings: completeBookings.length,
             completeBookings: completeBookings.length,
-            recentBookings: bookings.slice(0, 3),
+            recentBookings: bookings.slice(0, 5),
             monthlyRevenue
         };
 

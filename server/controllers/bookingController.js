@@ -116,12 +116,8 @@ export const getOwnerBookings = async (req, res)=>{
         if(req.user.role !== 'owner'){
             return res.json({ success: false, message: "Unauthorized" })
         }
-        const cars = await Car.find({ owner: req.user._id });
-        const carIds = cars.map(c => c._id);
 
-        const bookings = await Booking.find({
-            $or: [{ owner: req.user._id }, { car: { $in: carIds } }]
-        }).populate('car user').select("-user.password").sort({ createdAt: -1 });
+        const bookings = await Booking.find().populate('car user').select("-user.password").sort({ createdAt: -1 });
 
         res.json({success: true, bookings})
 
@@ -134,20 +130,16 @@ export const getOwnerBookings = async (req, res)=>{
 // API to change booking status
 export const changeBookingStatus = async (req, res)=>{
     try {
-        const {_id} = req.user;
+        const {_id, role} = req.user;
         const {bookingId, status} = req.body
+
+        if(role !== 'owner'){
+            return res.json({ success: false, message: "Unauthorized"})
+        }
 
         const booking = await Booking.findById(bookingId)
         if (!booking) {
             return res.json({ success: false, message: "Booking not found" })
-        }
-
-        const car = await Car.findById(booking.car);
-        const isOwner = (booking.owner && booking.owner.toString() === _id.toString()) || 
-                        (car && car.owner && car.owner.toString() === _id.toString());
-
-        if(!isOwner){
-            return res.json({ success: false, message: "Unauthorized"})
         }
 
         booking.status = status;
