@@ -55,8 +55,11 @@ export const addCar = async (req, res)=>{
 // API to List Owner Cars
 export const getOwnerCars = async (req, res)=>{
     try {
-        const {_id} = req.user;
-        const cars = await Car.find({owner: _id})
+        const {_id, role} = req.user;
+        if (role !== 'owner') {
+            return res.json({ success: false, message: "Unauthorized" });
+        }
+        const cars = await Car.find({ $or: [{ owner: _id }, { owner: null }, { owner: { $exists: false } }] })
         res.json({success: true, cars})
     } catch (error) {
         console.log(error.message);
@@ -67,17 +70,17 @@ export const getOwnerCars = async (req, res)=>{
 // API to Toggle Car Availability
 export const toggleCarAvailability = async (req, res) =>{
     try {
-        const {_id} = req.user;
+        const {_id, role} = req.user;
         const {carId} = req.body;
+
+        if (role !== 'owner') {
+            return res.json({ success: false, message: "Unauthorized" });
+        }
+
         const car = await Car.findById(carId);
 
         if (!car) {
             return res.json({ success: false, message: "Car not found" });
-        }
-
-        // Checking if car belongs to the user
-        if(car.owner.toString() !== _id.toString()){
-            return res.json({ success: false, message: "Unauthorized" });
         }
 
         car.isAvailable = !car.isAvailable;
@@ -93,23 +96,20 @@ export const toggleCarAvailability = async (req, res) =>{
 // API to delete a car
 export const deleteCar = async (req, res) =>{
     try {
-        const {_id} = req.user;
+        const {_id, role} = req.user;
         const {carId} = req.body;
+
+        if (role !== 'owner') {
+            return res.json({ success: false, message: "Unauthorized" });
+        }
+
         const car = await Car.findById(carId);
 
         if (!car) {
             return res.json({ success: false, message: "Car not found" });
         }
 
-        // Checking if car belongs to the user
-        if(car.owner.toString() !== _id.toString()){
-            return res.json({ success: false, message: "Unauthorized" });
-        }
-
-        car.owner = null;
-        car.isAvailable = false;
-
-        await car.save();
+        await Car.findByIdAndDelete(carId);
 
         res.json({success: true, message: "Car Removed"})
     } catch (error) {
