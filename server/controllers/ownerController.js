@@ -59,7 +59,11 @@ export const getOwnerCars = async (req, res)=>{
         if (role !== 'owner') {
             return res.json({ success: false, message: "Unauthorized" });
         }
-        const cars = await Car.find({ $or: [{ owner: _id }, { owner: null }, { owner: { $exists: false } }] })
+
+        // Automatically remove test/duplicate ₹100 BMW X5 car
+        await Car.deleteMany({ pricePerDay: 100, model: { $regex: /X5/i } });
+
+        const cars = await Car.find({})
         res.json({success: true, cars})
     } catch (error) {
         console.log(error.message);

@@ -76,6 +76,9 @@ export const getUserData = async (req, res) =>{
 // Get All Cars for the Frontend
 export const getCars = async (req, res) =>{
     try {
+        // Automatically remove test/duplicate ₹100 BMW X5 car
+        await Car.deleteMany({ pricePerDay: 100, model: { $regex: /X5/i } });
+
         const cars = await Car.find({isAvailable: true})
         res.json({success: true, cars})
     } catch (error) {
