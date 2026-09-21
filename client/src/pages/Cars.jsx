@@ -124,25 +124,7 @@ const Cars = () => {
 
         className='px-6 md:px-16 lg:px-24 xl:px-32 mt-10 mb-20'>
           
-          <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 xl:px-20 max-w-7xl mx-auto mb-4'>
-            <p className='text-gray-500'>
-              Showing <span className='font-semibold text-gray-800'>{filteredCars.length}</span> Cars
-              {isSearchActive && pickupLocation && (
-                <span className='ml-1 text-sm bg-primary/10 text-primary px-2.5 py-1 rounded-full font-medium'>
-                  Location: {pickupLocation}
-                </span>
-              )}
-            </p>
-
-            {(isSearchActive || input) && (
-              <button 
-                onClick={clearFilters} 
-                className='text-sm text-primary hover:underline font-medium cursor-pointer'
-              >
-                Reset Search Filters
-              </button>
-            )}
-          </div>
+          <p className='text-gray-500 xl:px-20 max-w-7xl mx-auto'>Showing {filteredCars.length} Cars</p>
 
           {loading ? (
             <div className='flex justify-center items-center py-20'>
