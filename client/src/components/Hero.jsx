@@ -11,9 +11,12 @@ const Hero = () => {
 
     const handleSearch = (e)=>{
       e.preventDefault()
-      navigate('/cars?pickupLocation=' + pickupLocation + '&pickupDate='
-      + pickupDate + '&returnDate=' + returnDate)
-
+      const query = new URLSearchParams({
+        pickupLocation,
+        pickupDate,
+        returnDate
+      }).toString()
+      navigate(`/cars?${query}`)
    }
 
   return (

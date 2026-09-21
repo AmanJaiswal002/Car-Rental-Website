@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Title from '../../components/owner/Title'
-import { assets } from '../../assets/assets'
+import { assets, cityList } from '../../assets/assets'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
 
@@ -160,10 +160,9 @@ const AddCar = () => {
             <select required onChange={e=> setCar({...car, location: e.target.value})} value={car.location}
              className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none'>
               <option value="">Select a location</option>
-              <option value="Meerut">Meerut</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Noida">Noida</option>
-              <option value="Ghaziabad">Ghaziabad</option>
+              {cityList.map((city) => (
+                <option key={city} value={city}>{city}</option>
+              ))}
             </select>
        </div>
 

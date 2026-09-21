@@ -3,9 +3,12 @@ import Car from "../models/Car.js";
 
 // Function to Check Availability of Car for a given Date
 const checkAvailability = async (car, pickupDate, returnDate)=>{
+    if (!pickupDate || !returnDate) return true;
     const pDate = new Date(pickupDate);
     const rDate = new Date(returnDate);
-    
+
+    if (isNaN(pDate.getTime()) || isNaN(rDate.getTime())) return true;
+
     const bookings = await Booking.find({
         car,
         status: { $ne: "cancelled" },
@@ -20,8 +23,13 @@ export const checkAvailabilityofCar = async (req, res)=>{
     try {
         const {location, pickupDate, returnDate} = req.body
 
-        // fetch all available cars for the given location
-        const cars = await Car.find({location, isAvailable: true})
+        // fetch all available cars for the given location using case-insensitive regex search
+        const query = { isAvailable: true };
+        if (location && typeof location === 'string' && location.trim() !== "") {
+            query.location = { $regex: new RegExp(location.trim(), 'i') };
+        }
+
+        const cars = await Car.find(query)
 
         // check car availability for the given date range using promise
         const availableCarsPromises = cars.map(async (car)=>{
