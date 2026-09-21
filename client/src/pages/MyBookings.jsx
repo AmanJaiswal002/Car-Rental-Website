@@ -8,7 +8,7 @@ import { motion } from 'motion/react'
 
 const MyBookings = () => {
 
-  const { axios, user, currency, token, setShowLogin, navigate } = useAppContext()
+  const { axios, user, currency, token, isOwner, setShowLogin, navigate } = useAppContext()
 
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
@@ -16,7 +16,8 @@ const MyBookings = () => {
   const fetchMyBookings = async ()=>{
     try {
       const currentToken = token || localStorage.getItem('token')
-      const { data } = await axios.get('/api/bookings/user', {
+      const endpoint = (isOwner || user?.role === 'owner') ? '/api/bookings/owner' : '/api/bookings/user';
+      const { data } = await axios.get(endpoint, {
         headers: { Authorization: currentToken }
       })
       if (data.success) {
@@ -54,7 +55,7 @@ const MyBookings = () => {
     } else {
       setLoading(false)
     }
-  },[user, token])
+  },[user, token, isOwner])
 
   if (loading) return <Loader />
 
@@ -113,8 +114,13 @@ const MyBookings = () => {
 
               {/* Booking Info */}
               <div className='md:col-span-2'>
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2 flex-wrap'>
                   <p className='px-3 py-1.5 bg-light rounded font-medium'>Booking #{index+1}</p>
+                  {booking.user?.name && (
+                    <p className='px-2.5 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded border border-blue-100'>
+                      User: {booking.user.name}
+                    </p>
+                  )}
                   <p className={`px-3 py-1 text-xs rounded-full capitalize ${booking.status === 'confirmed' ? 
                    'bg-green-400/15 text-green-600' : booking.status === 'cancelled' ? 'bg-red-400/15 text-red-600' : 'bg-yellow-400/15 text-yellow-600'}`}>{booking.status}</p>
                 </div>
