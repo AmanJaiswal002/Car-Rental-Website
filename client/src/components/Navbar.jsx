@@ -7,7 +7,7 @@ import {motion} from 'motion/react'
 
 const Navbar = () => {
 
-    const {setShowLogin, user, logout, isOwner, changeRole, token} = useAppContext()
+    const {setShowLogin, user, logout, isOwner, openAdminLogin, setLoginMode, token} = useAppContext()
 
     const location = useLocation()
     const [open, setOpen] = useState(false)
@@ -53,11 +53,19 @@ const Navbar = () => {
                 </div>
 
                 <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
+                    {isOwner ? (
+                        <button onClick={()=> { setOpen(false); navigate('/owner'); }} 
+                        className="cursor-pointer text-red-600 font-semibold border border-red-200 bg-red-50 px-3 py-1.5 rounded-lg hover:bg-red-100 transition-all">
+                            Admin Dashboard
+                        </button>
+                    ) : (
+                        <button onClick={()=> { setOpen(false); openAdminLogin(); }} 
+                        className="cursor-pointer text-gray-600 hover:text-red-600 text-sm font-medium transition-all">
+                            Admin Login
+                        </button>
+                    )}
 
-                    <button onClick={()=> { setOpen(false); isOwner ? navigate('/owner') : changeRole(); }} 
-                    className="cursor-pointer">{ isOwner ? 'Dashboard' : 'List cars'}</button>
-
-                    <button onClick={()=> { setOpen(false); isLoggedIn ? logout() : setShowLogin(true); }} className="cursor-pointer px-8 py-2 bg-primary
+                    <button onClick={()=> { setOpen(false); if (isLoggedIn) { logout(); } else { setLoginMode('login'); setShowLogin(true); } }} className="cursor-pointer px-8 py-2 bg-primary
                     hover:bg-primary-dull transition-all text-white rounded-lg">{isLoggedIn ? 'Logout' : 'Login'}</button>
                 </div>
             </div>

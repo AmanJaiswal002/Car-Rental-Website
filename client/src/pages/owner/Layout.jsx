@@ -4,13 +4,16 @@ import Sidebar from '../../components/owner/Sidebar'
 import { Outlet } from 'react-router-dom'
 import { useAppContext } from '../../context/AppContext'
 import Loader from '../../components/Loader'
+import { toast } from 'react-hot-toast'
 
 const Layout = () => {
-  const { isOwner, loadingUser, navigate } = useAppContext()
+  const { isOwner, loadingUser, navigate, openAdminLogin } = useAppContext()
 
   useEffect(() => {
     if (!loadingUser && !isOwner) {
+      toast.error("Access Denied! Admin credentials required to view the Dashboard.")
       navigate('/')
+      openAdminLogin()
     }
   }, [isOwner, loadingUser])
 

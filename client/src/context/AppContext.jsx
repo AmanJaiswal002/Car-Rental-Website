@@ -29,6 +29,7 @@ export const AppProvider = ({ children })=>{
     const [isOwner, setIsOwner] = useState(false);
     const [loadingUser, setLoadingUser] = useState(true);
     const [showLogin, setShowLogin] = useState(false);
+    const [loginMode, setLoginMode] = useState("login"); // "login", "register", "admin"
     const [pickupDate, setPickupDate] = useState('');
     const [returnDate, setReturnDate] = useState('');
 
@@ -57,29 +58,13 @@ export const AppProvider = ({ children })=>{
         }
     }
 
-    // Function to change user role to owner
-    const changeRole = async ()=>{
-        const currentToken = token || localStorage.getItem('token');
-        if(!currentToken){
-            setShowLogin(true);
-            return;
-        }
-        try {
-            axios.defaults.headers.common['Authorization'] = `${currentToken}`;
-            const { data } = await axios.post('/api/owner/change-role', {}, {
-                headers: { Authorization: currentToken }
-            });
-            if (data.success) {
-                setUser(prev => prev ? { ...prev, role: 'owner' } : { role: 'owner' });
-                setIsOwner(true);
-                toast.success(data.message || "Now you can list cars");
-            } else {
-                toast.error(data.message);
-            }
-        } catch (error) {
-            toast.error(error.message);
-        }
-    }
+    // Function to open Admin Login modal
+    const openAdminLogin = () => {
+        setLoginMode("admin");
+        setShowLogin(true);
+    };
+
+    const changeRole = openAdminLogin;
 
     // function to fetch all cars from the server
     const fetchCars = async () =>{
@@ -100,7 +85,6 @@ export const AppProvider = ({ children })=>{
         setLoadingUser(false)
         axios.defaults.headers.common['Authorization'] = '';
         toast.success('You have been logged out');
-
     }
 
 
@@ -122,7 +106,7 @@ export const AppProvider = ({ children })=>{
 
     const value = {
         navigate, currency, axios, setUser, token, setToken, isOwner, setIsOwner, loadingUser,
-        fetchUser, changeRole, showLogin, setShowLogin, logout, fetchCars, cars, setCars, pickupDate,
+        fetchUser, changeRole, openAdminLogin, showLogin, setShowLogin, loginMode, setLoginMode, logout, fetchCars, cars, setCars, pickupDate,
         setPickupDate, returnDate, setReturnDate
     }
 

@@ -3,6 +3,26 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import Car from "../models/Car.js";
 
+// Function to ensure default Admin exists
+export const ensureAdminUser = async () => {
+    try {
+        const adminEmail = "admin@carrental.com";
+        const adminExists = await User.findOne({ email: adminEmail });
+        if (!adminExists) {
+            const hashedPassword = await bcrypt.hash("admin12345", 10);
+            await User.create({
+                name: "System Admin",
+                email: adminEmail,
+                password: hashedPassword,
+                role: "owner"
+            });
+            console.log("Default Admin account created (admin@carrental.com / admin12345)");
+        }
+    } catch (err) {
+        console.error("Error creating default admin user:", err.message);
+    }
+};
+
 // Generate JWT Token
 const generateToken = (userId)=>{
     const payload = userId;
@@ -12,6 +32,7 @@ const generateToken = (userId)=>{
 // Register User
 export const registerUser = async (req, res)=>{
     try {
+        await ensureAdminUser();
         const {name, email, password} = req.body
 
         if(!name || !email || !password || password.length < 8){
@@ -24,7 +45,8 @@ export const registerUser = async (req, res)=>{
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-        const user = await User.create({name, email, password: hashedPassword})
+        // New registrations are always regular users
+        const user = await User.create({name, email, password: hashedPassword, role: 'user'})
         const token = generateToken(user._id.toString())
         res.json({
             success: true, 
@@ -41,6 +63,7 @@ export const registerUser = async (req, res)=>{
 // Login User
 export const loginUser = async (req, res)=>{
     try {
+        await ensureAdminUser();
         const {email, password} = req.body
         const user = await User.findOne({email})
         if(!user){
