@@ -42,7 +42,7 @@ const Login = () => {
                     setIsOwner(isUserOwner)
 
                     if (state === "admin" || isUserOwner) {
-                        toast.success("Welcome Admin! Redirecting to Dashboard...");
+                        toast.success("Welcome to the Admin Dashboard!");
                         setShowLogin(false)
                         navigate('/owner')
                         return;
