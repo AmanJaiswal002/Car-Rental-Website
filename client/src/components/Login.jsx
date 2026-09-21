@@ -69,7 +69,7 @@ const Login = () => {
     <div onClick={()=> { setShowLogin(false); if(setLoginMode) setLoginMode('login'); }} className='fixed top-0 bottom-0 left-0 right-0 z-100 
     flex items-center text-sm text-gray-600 bg-black/50'>
 
-       <form onSubmit={onSubmitHandler} onClick={(e)=>e.stopPropagation()} className="flex flex-col gap-4 m-auto items-start 
+       <form onSubmit={onSubmitHandler} autoComplete="off" onClick={(e)=>e.stopPropagation()} className="flex flex-col gap-4 m-auto items-start 
        p-8 py-10 w-80 sm:w-[360px] text-gray-500 rounded-xl shadow-2xl border border-gray-200 bg-white relative">
 
             {/* Close Button */}
@@ -94,18 +94,18 @@ const Login = () => {
             {state === "register" && (
                 <div className="w-full">
                     <p className="font-medium text-xs text-gray-600">Full Name</p>
-                    <input onChange={(e) => setName(e.target.value)} value={name} placeholder="" 
+                    <input onChange={(e) => setName(e.target.value)} value={name} placeholder="" autoComplete="off"
                     className="border border-gray-300 rounded-md w-full p-2 mt-1 outline-primary text-sm" type="text" required />
                 </div>
             )}
             <div className="w-full">
                 <p className="font-medium text-xs text-gray-600">Email Address</p>
-                <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder="" 
+                <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder="" autoComplete="off" 
                 className="border border-gray-300 rounded-md w-full p-2 mt-1 outline-primary text-sm" type="email" required />
             </div>
             <div className="w-full">
                 <p className="font-medium text-xs text-gray-600">Password</p>
-                <input onChange={(e) => setPassword(e.target.value)} value={password} placeholder="" 
+                <input onChange={(e) => setPassword(e.target.value)} value={password} placeholder="" autoComplete="new-password"
                 className="border border-gray-300 rounded-md w-full p-2 mt-1 outline-primary text-sm" type="password" required />
             </div>
 
