@@ -16,6 +16,9 @@ const Login = () => {
         if (loginMode) {
             setState(loginMode);
         }
+        setEmail("");
+        setPassword("");
+        setName("");
     }, [loginMode]);
 
     const onSubmitHandler = async (event)=>{
@@ -91,18 +94,18 @@ const Login = () => {
             {state === "register" && (
                 <div className="w-full">
                     <p className="font-medium text-xs text-gray-600">Full Name</p>
-                    <input onChange={(e) => setName(e.target.value)} value={name} placeholder="John Doe" 
+                    <input onChange={(e) => setName(e.target.value)} value={name} placeholder="" 
                     className="border border-gray-300 rounded-md w-full p-2 mt-1 outline-primary text-sm" type="text" required />
                 </div>
             )}
             <div className="w-full">
                 <p className="font-medium text-xs text-gray-600">Email Address</p>
-                <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder={state === "admin" ? "admin@carrental.com" : "you@example.com"} 
+                <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder="" 
                 className="border border-gray-300 rounded-md w-full p-2 mt-1 outline-primary text-sm" type="email" required />
             </div>
             <div className="w-full">
                 <p className="font-medium text-xs text-gray-600">Password</p>
-                <input onChange={(e) => setPassword(e.target.value)} value={password} placeholder="••••••••" 
+                <input onChange={(e) => setPassword(e.target.value)} value={password} placeholder="" 
                 className="border border-gray-300 rounded-md w-full p-2 mt-1 outline-primary text-sm" type="password" required />
             </div>
 
