@@ -177,4 +177,24 @@ export const cancelUserBooking = async (req, res)=>{
     }
 }
 
+// API to Delete Booking by Owner/Admin
+export const deleteBookingByOwner = async (req, res)=>{
+    try {
+        if(req.user.role !== 'owner'){
+            return res.json({ success: false, message: "Unauthorized. Only Admin can delete bookings." });
+        }
+        const { bookingId } = req.body;
+        const booking = await Booking.findById(bookingId);
+        if (!booking) {
+            return res.json({ success: false, message: "Booking not found" });
+        }
+
+        await Booking.findByIdAndDelete(bookingId);
+        res.json({ success: true, message: "Booking deleted successfully" });
+    } catch (error) {
+        console.log(error.message);
+        res.json({ success: false, message: error.message });
+    }
+}
+
 
