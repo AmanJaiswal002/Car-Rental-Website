@@ -118,7 +118,7 @@ const Hero = () => {
                   onChange={(e)=>setReturnLocation(e.target.value)} 
                   className='absolute inset-0 opacity-0 w-full h-full cursor-pointer'
                 >
-                    <option value="Same as Pick-up Location">Same as Pick-up Location</option>
+                    <option value="">Select Location</option>
                     {returnLocationList.map((loc)=> <option key={loc} value={loc}>{loc}</option>)}
                 </select>
              </div>
