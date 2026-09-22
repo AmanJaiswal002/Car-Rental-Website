@@ -24,7 +24,7 @@ const Cars = () => {
   const [filteredCars, setFilteredCars] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const isSearchActive = Boolean(pickupLocation || destination || pickupDate || returnDate || (returnLocation && returnLocation !== 'Same as Pickup Location'))
+  const isSearchActive = Boolean(pickupLocation || destination || pickupDate || returnDate || (returnLocation && returnLocation !== 'Same as Pick-up Location'))
 
   // Sync context state with URL search params
   useEffect(() => {
@@ -97,7 +97,7 @@ const Cars = () => {
     setInput('')
     setPickupLocation('')
     setDestination('')
-    setReturnLocation('Same as Pickup Location')
+    setReturnLocation('Same as Pick-up Location')
   }
 
   return (
@@ -165,7 +165,7 @@ const Cars = () => {
                   </span>
                 )}
                 <span className='bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-medium border border-emerald-100'>
-                  Return: <strong>{returnLocation || 'Same as Pickup Location'}</strong>
+                  Return: <strong>{returnLocation || 'Same as Pick-up Location'}</strong>
                 </span>
               </div>
               <button 

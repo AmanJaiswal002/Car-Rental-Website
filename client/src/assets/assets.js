@@ -67,16 +67,7 @@ export const destinationList = [
 ]
 
 export const returnLocationList = [
-    'Same as Pickup Location',
-    'Meerut',
-    'Delhi',
-    'Noida',
-    'Ghaziabad',
-    'Gurugram',
-    'Nainital',
-    'Mussoorie',
-    'Haridwar',
-    'Varanasi (Banaras)'
+    'Same as Pick-up Location'
 ]
 
 

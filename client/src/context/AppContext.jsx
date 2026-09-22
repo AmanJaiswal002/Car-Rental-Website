@@ -34,7 +34,7 @@ export const AppProvider = ({ children })=>{
     const [returnDate, setReturnDate] = useState('');
     const [pickupLocation, setPickupLocation] = useState('');
     const [destination, setDestination] = useState('');
-    const [returnLocation, setReturnLocation] = useState('Same as Pickup Location');
+    const [returnLocation, setReturnLocation] = useState('Same as Pick-up Location');
 
     const [cars, setCars] = useState([]);
 

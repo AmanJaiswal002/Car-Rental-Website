@@ -21,7 +21,7 @@ const Hero = () => {
         destination: destination || '',
         pickupDate: pickupDate || '',
         returnDate: returnDate || '',
-        returnLocation: returnLocation || 'Same as Pickup Location'
+        returnLocation: returnLocation || 'Same as Pick-up Location'
       }).toString()
       navigate(`/cars?${query}`)
     }
@@ -53,10 +53,10 @@ const Hero = () => {
 
           <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 flex-1 text-left items-center px-2'>
             
-             {/* 1. Pickup Location */}
+             {/* 1. Pick-up Location */}
              <div className='flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 sm:border-r border-gray-200 pr-2'>
                 <select value={pickupLocation} onChange={(e)=>setPickupLocation(e.target.value)} className='w-full outline-none bg-transparent text-gray-800 font-semibold text-sm md:text-base cursor-pointer'>
-                    <option value="">Pickup Location</option>
+                    <option value="">Pick-up Location</option>
                     {cityList.map((city)=> <option key={city} value={city}>{city}</option>)}
                 </select>
                 <p className='text-xs text-gray-400 truncate max-w-[140px] px-1'>{pickupLocation ? pickupLocation : 'Please select location'}</p>
@@ -87,10 +87,10 @@ const Hero = () => {
              {/* 5. Return Location */}
              <div className='flex flex-col items-start gap-1 pr-2'>
                 <select value={returnLocation} onChange={(e)=>setReturnLocation(e.target.value)} className='w-full outline-none bg-transparent text-gray-800 font-semibold text-sm md:text-base cursor-pointer'>
-                    <option value="Same as Pickup Location">Return Location</option>
+                    <option value="Same as Pick-up Location">Return Location</option>
                     {returnLocationList.map((loc)=> <option key={loc} value={loc}>{loc}</option>)}
                 </select>
-                <p className='text-xs text-gray-400 truncate max-w-[150px] px-1'>{returnLocation || 'Same as Pickup Location'}</p>
+                <p className='text-xs text-gray-400 truncate max-w-[150px] px-1'>{returnLocation || 'Same as Pick-up Location'}</p>
              </div>
         
           </div>
