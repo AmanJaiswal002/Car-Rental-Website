@@ -54,21 +54,41 @@ const Hero = () => {
           <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 flex-1 text-left items-center px-2'>
             
              {/* 1. Pick-up Location */}
-             <div className='flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 sm:border-r border-gray-200 pr-2'>
-                <select value={pickupLocation} onChange={(e)=>setPickupLocation(e.target.value)} className='w-full outline-none bg-transparent text-gray-800 font-semibold text-sm md:text-base cursor-pointer'>
-                    <option value="">Pick-up Location</option>
+             <div className='relative flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 sm:border-r border-gray-200 pr-2 cursor-pointer group'>
+                <div className='flex items-center justify-between w-full pointer-events-none px-1'>
+                  <span className='text-sm md:text-base font-semibold text-gray-800'>Pick-up Location</span>
+                  <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <p className={`text-xs truncate max-w-[140px] px-1 ${pickupLocation ? 'font-semibold text-primary' : 'text-gray-400'}`}>
+                  {pickupLocation ? pickupLocation : 'Please select location'}
+                </p>
+                <select 
+                  value={pickupLocation} 
+                  onChange={(e)=>setPickupLocation(e.target.value)} 
+                  className='absolute inset-0 opacity-0 w-full h-full cursor-pointer'
+                >
+                    <option value="">Please select location</option>
                     {cityList.map((city)=> <option key={city} value={city}>{city}</option>)}
                 </select>
-                <p className='text-xs text-gray-400 truncate max-w-[140px] px-1'>{pickupLocation ? pickupLocation : 'Please select location'}</p>
              </div>
 
              {/* 2. Destination */}
-             <div className='flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 xl:border-r border-gray-200 pr-2'>
-                <select value={destination} onChange={(e)=>setDestination(e.target.value)} className='w-full outline-none bg-transparent text-gray-800 font-semibold text-sm md:text-base cursor-pointer'>
-                    <option value="">Destination</option>
+             <div className='relative flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 xl:border-r border-gray-200 pr-2 cursor-pointer group'>
+                <div className='flex items-center justify-between w-full pointer-events-none px-1'>
+                  <span className='text-sm md:text-base font-semibold text-gray-800'>Destination</span>
+                  <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <p className={`text-xs truncate max-w-[140px] px-1 ${destination ? 'font-semibold text-primary' : 'text-gray-400'}`}>
+                  {destination ? destination : 'Select destination'}
+                </p>
+                <select 
+                  value={destination} 
+                  onChange={(e)=>setDestination(e.target.value)} 
+                  className='absolute inset-0 opacity-0 w-full h-full cursor-pointer'
+                >
+                    <option value="">Select destination</option>
                     {destinationList.map((dest)=> <option key={dest} value={dest}>{dest}</option>)}
                 </select>
-                <p className='text-xs text-gray-400 truncate max-w-[140px] px-1'>{destination ? destination : 'Select destination'}</p>
              </div>
 
              {/* 3. Pick-up Date */}
@@ -85,12 +105,22 @@ const Hero = () => {
              </div>
 
              {/* 5. Return Location */}
-             <div className='flex flex-col items-start gap-1 pr-2'>
-                <select value={returnLocation} onChange={(e)=>setReturnLocation(e.target.value)} className='w-full outline-none bg-transparent text-gray-800 font-semibold text-sm md:text-base cursor-pointer'>
-                    <option value="Same as Pick-up Location">Return Location</option>
+             <div className='relative flex flex-col items-start gap-1 pr-2 cursor-pointer group'>
+                <div className='flex items-center justify-between w-full pointer-events-none px-1'>
+                  <span className='text-sm md:text-base font-semibold text-gray-800'>Return Location</span>
+                  <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <p className='text-xs font-semibold text-primary truncate max-w-[150px] px-1'>
+                  {returnLocation || 'Same as Pick-up Location'}
+                </p>
+                <select 
+                  value={returnLocation} 
+                  onChange={(e)=>setReturnLocation(e.target.value)} 
+                  className='absolute inset-0 opacity-0 w-full h-full cursor-pointer'
+                >
+                    <option value="Same as Pick-up Location">Same as Pick-up Location</option>
                     {returnLocationList.map((loc)=> <option key={loc} value={loc}>{loc}</option>)}
                 </select>
-                <p className='text-xs text-gray-400 truncate max-w-[150px] px-1'>{returnLocation || 'Same as Pick-up Location'}</p>
              </div>
         
           </div>

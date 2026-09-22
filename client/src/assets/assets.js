@@ -50,7 +50,8 @@ export const cityList = [
     'Gurugram',
     'Dehradun',
     'Chandigarh',
-    'Lucknow'
+    'Lucknow',
+    'Prayagraj'
 ]
 
 export const destinationList = [
