@@ -53,6 +53,8 @@ export const pickupLocationList = [
     'Chandigarh',
 ]
 
+export const cityList = pickupLocationList;
+
 export const destinationList = [
     'Nainital',
     'Mussoorie',

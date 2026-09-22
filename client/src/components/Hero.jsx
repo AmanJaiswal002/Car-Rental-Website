@@ -95,13 +95,13 @@ const Hero = () => {
              <div className='flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 sm:border-r border-gray-200 pr-2'>
                 <label htmlFor='pickup-date' className='text-sm md:text-base font-semibold text-gray-800 cursor-pointer px-1'>Pick-up Date</label>
                 <input value={pickupDate} onChange={e=>setPickupDate(e.target.value)} type="date" id="pickup-date" 
-                min={new Date().toISOString().split('T')[0]} className='w-full outline-none bg-transparent text-gray-500 text-xs md:text-sm cursor-pointer px-1' required/>
+                min={new Date().toISOString().split('T')[0]} className={`w-full outline-none bg-transparent text-xs md:text-sm cursor-pointer px-1 ${pickupDate ? 'font-semibold text-primary' : 'text-gray-500'}`} required/>
              </div>
 
              {/* 4. Return Date */}
              <div className='flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 xl:border-r border-gray-200 pr-2'>
                 <label htmlFor='return-date' className='text-sm md:text-base font-semibold text-gray-800 cursor-pointer px-1'>Return- Date</label>
-                <input value={returnDate} onChange={e=>setReturnDate(e.target.value)} type="date" id="return-date" className='w-full outline-none bg-transparent text-gray-500 text-xs md:text-sm cursor-pointer px-1' required/>
+                <input value={returnDate} onChange={e=>setReturnDate(e.target.value)} type="date" id="return-date" className={`w-full outline-none bg-transparent text-xs md:text-sm cursor-pointer px-1 ${returnDate ? 'font-semibold text-primary' : 'text-gray-500'}`} required/>
              </div>
 
              {/* 5. Return Location */}
