@@ -110,8 +110,8 @@ const Hero = () => {
                   <span className='text-sm md:text-base font-bold text-gray-900'>Return Location</span>
                   <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
-                <p className='text-xs md:text-sm font-semibold text-primary truncate max-w-full px-1'>
-                  {returnLocation || 'Same as Pick-up Location'}
+                <p className={`text-xs md:text-sm truncate max-w-full px-1 ${returnLocation ? 'font-semibold text-primary' : 'text-gray-400'}`}>
+                  {returnLocation ? returnLocation : 'Select location'}
                 </p>
                 <select 
                   value={returnLocation} 

@@ -97,7 +97,7 @@ const Cars = () => {
     setInput('')
     setPickupLocation('')
     setDestination('')
-    setReturnLocation('Same as Pick-up Location')
+    setReturnLocation('')
   }
 
   return (
