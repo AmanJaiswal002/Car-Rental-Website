@@ -21,7 +21,7 @@ const checkAvailability = async (car, pickupDate, returnDate)=>{
 // API to Check Availability of Cars for the given Date and location
 export const checkAvailabilityofCar = async (req, res)=>{
     try {
-        const {location, pickupDate, returnDate} = req.body
+        const {location, destination, returnLocation, pickupDate, returnDate} = req.body
 
         // fetch available cars for the given location using case-insensitive regex search
         const query = { isAvailable: true };

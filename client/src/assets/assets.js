@@ -47,8 +47,38 @@ export const cityList = [
     'Delhi',
     'Noida',
     'Ghaziabad',
-    'Gurugram'
+    'Gurugram',
+    'Dehradun',
+    'Chandigarh',
+    'Lucknow'
 ]
+
+export const destinationList = [
+    'Nainital',
+    'Mussoorie',
+    'Haridwar',
+    'Varanasi (Banaras)',
+    'Agra',
+    'Jaipur',
+    'Rishikesh',
+    'Shimla',
+    'Manali',
+    'Kedarnath'
+]
+
+export const returnLocationList = [
+    'Same as Pickup Location',
+    'Meerut',
+    'Delhi',
+    'Noida',
+    'Ghaziabad',
+    'Gurugram',
+    'Nainital',
+    'Mussoorie',
+    'Haridwar',
+    'Varanasi (Banaras)'
+]
+
 
 export const currency = '₹'
 

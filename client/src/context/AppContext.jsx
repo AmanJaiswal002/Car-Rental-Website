@@ -32,6 +32,9 @@ export const AppProvider = ({ children })=>{
     const [loginMode, setLoginMode] = useState("login"); // "login", "register", "admin"
     const [pickupDate, setPickupDate] = useState('');
     const [returnDate, setReturnDate] = useState('');
+    const [pickupLocation, setPickupLocation] = useState('');
+    const [destination, setDestination] = useState('');
+    const [returnLocation, setReturnLocation] = useState('Same as Pickup Location');
 
     const [cars, setCars] = useState([]);
 
@@ -107,7 +110,8 @@ export const AppProvider = ({ children })=>{
     const value = {
         navigate, currency, axios, setUser, token, setToken, isOwner, setIsOwner, loadingUser,
         fetchUser, changeRole, openAdminLogin, showLogin, setShowLogin, loginMode, setLoginMode, logout, fetchCars, cars, setCars, pickupDate,
-        setPickupDate, returnDate, setReturnDate
+        setPickupDate, returnDate, setReturnDate, pickupLocation, setPickupLocation, destination, setDestination,
+        returnLocation, setReturnLocation
     }
 
     return (

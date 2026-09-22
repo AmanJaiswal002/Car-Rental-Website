@@ -12,17 +12,28 @@ const Cars = () => {
   // getting search params from url
   const [searchParams, setSearchParams] = useSearchParams()
   const pickupLocation = searchParams.get('pickupLocation') || ''
+  const destination = searchParams.get('destination') || ''
+  const returnLocation = searchParams.get('returnLocation') || ''
   const pickupDate = searchParams.get('pickupDate') || ''
   const returnDate = searchParams.get('returnDate') || ''
 
-  const { cars, axios } = useAppContext()
+  const { cars, axios, setPickupLocation, setDestination, setReturnLocation, setPickupDate, setReturnDate } = useAppContext()
 
   const [input, setInput] = useState('')
   const [searchFilteredCars, setSearchFilteredCars] = useState(null)
   const [filteredCars, setFilteredCars] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const isSearchActive = Boolean(pickupLocation || pickupDate || returnDate)
+  const isSearchActive = Boolean(pickupLocation || destination || pickupDate || returnDate || (returnLocation && returnLocation !== 'Same as Pickup Location'))
+
+  // Sync context state with URL search params
+  useEffect(() => {
+    if (pickupLocation) setPickupLocation(pickupLocation)
+    if (destination) setDestination(destination)
+    if (returnLocation) setReturnLocation(returnLocation)
+    if (pickupDate) setPickupDate(pickupDate)
+    if (returnDate) setReturnDate(returnDate)
+  }, [pickupLocation, destination, returnLocation, pickupDate, returnDate])
 
   // Search car availability whenever URL search params change
   useEffect(() => {
@@ -31,6 +42,8 @@ const Cars = () => {
       try {
         const { data } = await axios.post('/api/bookings/check-availability', {
           location: pickupLocation,
+          destination,
+          returnLocation,
           pickupDate,
           returnDate
         })
@@ -55,7 +68,7 @@ const Cars = () => {
     } else {
       setSearchFilteredCars(null)
     }
-  }, [pickupLocation, pickupDate, returnDate])
+  }, [pickupLocation, destination, returnLocation, pickupDate, returnDate])
 
   // Combine availability results (or all cars) with keyword input filter
   useEffect(() => {
@@ -82,6 +95,9 @@ const Cars = () => {
   const clearFilters = () => {
     setSearchParams({})
     setInput('')
+    setPickupLocation('')
+    setDestination('')
+    setReturnLocation('Same as Pickup Location')
   }
 
   return (
@@ -124,6 +140,43 @@ const Cars = () => {
 
         className='px-6 md:px-16 lg:px-24 xl:px-32 mt-10 mb-20'>
           
+          {/* Active Search Summary Banner */}
+          {isSearchActive && (
+            <div className='flex flex-wrap items-center justify-between gap-3 bg-white border border-gray-200 shadow-sm rounded-2xl px-6 py-4 mb-6 max-w-7xl mx-auto'>
+              <div className='flex flex-wrap items-center gap-3 text-xs md:text-sm text-gray-700'>
+                {pickupLocation && (
+                  <span className='bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-medium border border-blue-100'>
+                    Pickup: <strong>{pickupLocation}</strong>
+                  </span>
+                )}
+                {destination && (
+                  <span className='bg-purple-50 text-purple-700 px-3 py-1 rounded-full font-medium border border-purple-100'>
+                    Destination: <strong>{destination}</strong>
+                  </span>
+                )}
+                {pickupDate && (
+                  <span className='bg-gray-100 text-gray-700 px-3 py-1 rounded-full border border-gray-200'>
+                    From: {pickupDate}
+                  </span>
+                )}
+                {returnDate && (
+                  <span className='bg-gray-100 text-gray-700 px-3 py-1 rounded-full border border-gray-200'>
+                    To: {returnDate}
+                  </span>
+                )}
+                <span className='bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-medium border border-emerald-100'>
+                  Return: <strong>{returnLocation || 'Same as Pickup Location'}</strong>
+                </span>
+              </div>
+              <button 
+                onClick={clearFilters}
+                className='text-xs font-semibold text-red-500 hover:text-red-700 underline cursor-pointer shrink-0'
+              >
+                Clear Search
+              </button>
+            </div>
+          )}
+
           <p className='text-gray-500 xl:px-20 max-w-7xl mx-auto'>Showing {filteredCars.length} Cars</p>
 
           {loading ? (
@@ -147,7 +200,7 @@ const Cars = () => {
               <p className='text-gray-600 text-lg font-medium mb-2'>No cars found</p>
               <p className='text-gray-400 text-sm mb-6'>
                 {isSearchActive 
-                  ? `There are no available cars in "${pickupLocation || 'selected area'}" for the chosen date range.`
+                  ? `There are no available cars for "${pickupLocation || 'selected location'}" to "${destination || 'selected destination'}" on chosen dates.`
                   : 'No cars match your search filter.'}
               </p>
               <button 
