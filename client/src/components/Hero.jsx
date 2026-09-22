@@ -56,10 +56,10 @@ const Hero = () => {
              {/* 1. Pick-up Location */}
              <div className='relative flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 sm:border-r border-gray-200 pr-2 cursor-pointer group'>
                 <div className='flex items-center justify-between w-full pointer-events-none px-1'>
-                  <span className='text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wider'>Pick-up Location</span>
-                  <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                  <span className='text-sm md:text-base font-bold text-gray-900'>Pick-up Location</span>
+                  <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
-                <p className={`text-sm md:text-base truncate max-w-full px-1 ${pickupLocation ? 'font-bold text-primary' : 'text-gray-400 font-medium'}`}>
+                <p className={`text-xs md:text-sm truncate max-w-full px-1 ${pickupLocation ? 'font-semibold text-primary' : 'text-gray-400'}`}>
                   {pickupLocation ? pickupLocation : 'Please select location'}
                 </p>
                 <select 
@@ -75,10 +75,10 @@ const Hero = () => {
              {/* 2. Destination */}
              <div className='relative flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 xl:border-r border-gray-200 pr-2 cursor-pointer group'>
                 <div className='flex items-center justify-between w-full pointer-events-none px-1'>
-                  <span className='text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wider'>Destination</span>
-                  <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                  <span className='text-sm md:text-base font-bold text-gray-900'>Destination</span>
+                  <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
-                <p className={`text-sm md:text-base truncate max-w-full px-1 ${destination ? 'font-bold text-primary' : 'text-gray-400 font-medium'}`}>
+                <p className={`text-xs md:text-sm truncate max-w-full px-1 ${destination ? 'font-semibold text-primary' : 'text-gray-400'}`}>
                   {destination ? destination : 'Select destination'}
                 </p>
                 <select 
@@ -93,24 +93,24 @@ const Hero = () => {
 
              {/* 3. Pick-up Date */}
              <div className='flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 sm:border-r border-gray-200 pr-2'>
-                <label htmlFor='pickup-date' className='text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wider cursor-pointer px-1'>Pick-up Date</label>
+                <label htmlFor='pickup-date' className='text-sm md:text-base font-bold text-gray-900 cursor-pointer px-1'>Pick-up Date</label>
                 <input value={pickupDate} onChange={e=>setPickupDate(e.target.value)} type="date" id="pickup-date" 
-                min={new Date().toISOString().split('T')[0]} className={`w-full outline-none bg-transparent text-sm md:text-base cursor-pointer px-1 ${pickupDate ? 'font-bold text-primary' : 'text-gray-400 font-medium'}`} required/>
+                min={new Date().toISOString().split('T')[0]} className={`w-full outline-none bg-transparent text-xs md:text-sm cursor-pointer px-1 ${pickupDate ? 'font-semibold text-primary' : 'text-gray-400'}`} required/>
              </div>
 
              {/* 4. Return Date */}
              <div className='flex flex-col items-start gap-1 pb-3 sm:pb-0 border-b sm:border-b-0 xl:border-r border-gray-200 pr-2'>
-                <label htmlFor='return-date' className='text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wider cursor-pointer px-1'>Return- Date</label>
-                <input value={returnDate} onChange={e=>setReturnDate(e.target.value)} type="date" id="return-date" className={`w-full outline-none bg-transparent text-sm md:text-base cursor-pointer px-1 ${returnDate ? 'font-bold text-primary' : 'text-gray-400 font-medium'}`} required/>
+                <label htmlFor='return-date' className='text-sm md:text-base font-bold text-gray-900 cursor-pointer px-1'>Return- Date</label>
+                <input value={returnDate} onChange={e=>setReturnDate(e.target.value)} type="date" id="return-date" className={`w-full outline-none bg-transparent text-xs md:text-sm cursor-pointer px-1 ${returnDate ? 'font-semibold text-primary' : 'text-gray-400'}`} required/>
              </div>
 
              {/* 5. Return Location */}
              <div className='relative flex flex-col items-start gap-1 pr-2 cursor-pointer group'>
                 <div className='flex items-center justify-between w-full pointer-events-none px-1'>
-                  <span className='text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wider'>Return Location</span>
-                  <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                  <span className='text-sm md:text-base font-bold text-gray-900'>Return Location</span>
+                  <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
-                <p className='text-sm md:text-base font-bold text-primary truncate max-w-full px-1'>
+                <p className='text-xs md:text-sm font-semibold text-primary truncate max-w-full px-1'>
                   {returnLocation || 'Same as Pick-up Location'}
                 </p>
                 <select 
